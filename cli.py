@@ -1,7 +1,7 @@
 """
 ============================================================
-  INTERACTIVE CLI — Student Management System
-  Запускается: python cli.py
+  ИНТЕРАКТИВНЫЙ CLI — СИСТЕМА УЧЁТА СТУДЕНТОВ
+  Запуск: python cli.py
 ============================================================
 """
 
@@ -14,18 +14,18 @@ def hr(char="─", width=50):
 
 def print_menu():
     hr("═")
-    print("  STUDENT MANAGEMENT SYSTEM")
+    print("  СИСТЕМА УЧЁТА СТУДЕНТОВ")
     hr("═")
-    print("  [1]  Register new student")
-    print("  [2]  List all students")
-    print("  [3]  Search by name")
-    print("  [4]  Search by major")
-    print("  [5]  Add / update grade")
-    print("  [6]  Sort students")
-    print("  [7]  Update student info")
-    print("  [8]  Delete student")
-    print("  [9]  Statistics")
-    print("  [0]  Exit")
+    print("  [1]  Регистрация нового студента")
+    print("  [2]  Показать всех студентов")
+    print("  [3]  Поиск по имени")
+    print("  [4]  Поиск по специальности")
+    print("  [5]  Добавить / обновить оценку")
+    print("  [6]  Сортировка студентов")
+    print("  [7]  Обновить данные студента")
+    print("  [8]  Удалить студента")
+    print("  [9]  Статистика")
+    print("  [0]  Выход")
     hr()
 
 
@@ -35,68 +35,72 @@ def get_input(prompt: str, cast=str, optional=False):
         if not val and optional:
             return None
         if not val:
-            print("  ⚠️  This field is required.")
+            print("  ⚠️  Это поле обязательно.")
             continue
         try:
             return cast(val)
         except (ValueError, TypeError):
-            print(f"  ⚠️  Invalid input, expected {cast.__name__}. Try again.")
+            print(f"  ⚠️  Неверный ввод, ожидается {cast.__name__}. Попробуйте снова.")
 
 
 def run():
-    sms = StudentManagementSystem("SDU University")
+    sms = StudentManagementSystem("Университет SDU")
 
-    # Seed with sample data for convenience
-    s1 = sms.register_student("Aidana Bekova",    "aidana@sdu.edu.kz",   "Computer Science", 2)
-    s2 = sms.register_student("Daniyar Seitkali", "daniyar@sdu.edu.kz",  "Mathematics",       3)
-    s1.add_grade("OOP", 95); s1.add_grade("Algorithms", 88)
-    s2.add_grade("Calculus", 76); s2.add_grade("Linear Algebra", 82)
-    print("  (2 sample students pre-loaded)\n")
+    # Заполнение тестовыми данными
+    s1 = sms.register_student("Айдана Бекова", "aidana@sdu.edu.kz", "Информатика", 2)
+    s2 = sms.register_student("Данияр Сейтқали", "daniyar@sdu.edu.kz", "Математика", 3)
+
+    s1.add_grade("ООП", 95)
+    s1.add_grade("Алгоритмы", 88)
+    s2.add_grade("Матанализ", 76)
+    s2.add_grade("Линейная алгебра", 82)
+
+    print("  (Загружено 2 тестовых студента)\n")
 
     while True:
         print_menu()
-        choice = input("  Choose option: ").strip()
+        choice = input("  Выберите опцию: ").strip()
 
         try:
-            # ── 1. Register ──
+            # ── 1. Регистрация ──
             if choice == "1":
-                print("\n  — Register New Student —")
-                name  = get_input("Full name")
+                print("\n  — Регистрация нового студента —")
+                name  = get_input("ФИО")
                 email = get_input("Email")
-                major = get_input("Major / field of study")
-                year  = get_input("Year (1-6)", int)
+                major = get_input("Специальность / направление")
+                year  = get_input("Курс (1-6)", int)
                 sms.register_student(name, email, major, year)
 
-            # ── 2. List all ──
+            # ── 2. Список всех ──
             elif choice == "2":
-                print(f"\n  — All Students ({len(sms)} total) —")
+                print(f"\n  — Все студенты ({len(sms)} всего) —")
                 sms.print_all()
 
-            # ── 3. Search by name ──
+            # ── 3. Поиск по имени ──
             elif choice == "3":
-                q = get_input("Enter name (partial ok)")
+                q = get_input("Введите имя (можно часть)")
                 results = sms.search_by_name(q)
-                print(f"\n  Found {len(results)} result(s):")
+                print(f"\n  Найдено {len(results)} результат(ов):")
                 sms.print_all(results)
 
-            # ── 4. Search by major ──
+            # ── 4. Поиск по специальности ──
             elif choice == "4":
-                q = get_input("Enter major (partial ok)")
+                q = get_input("Введите специальность (можно часть)")
                 results = sms.search_by_major(q)
-                print(f"\n  Found {len(results)} result(s):")
+                print(f"\n  Найдено {len(results)} результат(ов):")
                 sms.print_all(results)
 
-            # ── 5. Add grade ──
+            # ── 5. Оценки ──
             elif choice == "5":
-                sid     = get_input("Student ID (number only)", int)
-                subject = get_input("Subject name")
-                grade   = get_input("Grade (0-100)", float)
+                sid     = get_input("ID студента (только число)", int)
+                subject = get_input("Название предмета")
+                grade   = get_input("Оценка (0-100)", float)
                 sms.add_grade(sid, subject, grade)
 
-            # ── 6. Sort ──
+            # ── 6. Сортировка ──
             elif choice == "6":
-                print("  Sort by: [1] Name  [2] GPA  [3] Year")
-                sub = input("  Choice: ").strip()
+                print("  Сортировка: [1] Имя  [2] GPA  [3] Курс")
+                sub = input("  Выбор: ").strip()
                 if sub == "1":
                     sms.print_all(sms.sort_by_name())
                 elif sub == "2":
@@ -104,47 +108,50 @@ def run():
                 elif sub == "3":
                     sms.print_all(sms.sort_by_year())
 
-            # ── 7. Update ──
+            # ── 7. Обновление ──
             elif choice == "7":
-                sid = get_input("Student ID (number only)", int)
-                print("  Fields you can change: name, email, major, year")
-                print("  (Press Enter to skip a field)")
+                sid = get_input("ID студента (только число)", int)
+                print("  Поля для изменения: name, email, major, year")
+                print("  (Нажмите Enter, чтобы пропустить поле)")
                 updates = {}
+
                 for field in ("name", "email", "major"):
-                    val = get_input(f"New {field}", optional=True)
+                    val = get_input(f"Новое значение {field}", optional=True)
                     if val:
                         updates[field] = val
-                yr = get_input("New year (1-6)", optional=True)
+
+                yr = get_input("Новый курс (1-6)", optional=True)
                 if yr:
                     updates["year"] = int(yr)
+
                 if updates:
                     sms.update_student(sid, **updates)
                 else:
-                    print("  Nothing to update.")
+                    print("  Нет данных для обновления.")
 
-            # ── 8. Delete ──
+            # ── 8. Удаление ──
             elif choice == "8":
-                sid = get_input("Student ID to delete (number only)", int)
-                confirm = input(f"  Confirm delete STU-{sid}? (y/n): ").strip().lower()
+                sid = get_input("ID студента для удаления", int)
+                confirm = input(f"  Подтвердите удаление STU-{sid}? (y/n): ").strip().lower()
                 if confirm == "y":
                     sms.delete_student(sid)
 
-            # ── 9. Statistics ──
+            # ── 9. Статистика ──
             elif choice == "9":
                 sms.print_statistics()
 
-            # ── 0. Exit ──
+            # ── 0. Выход ──
             elif choice == "0":
-                print("\n  Goodbye! 👋\n")
+                print("\n  Выход... 👋\n")
                 break
 
             else:
-                print("  ⚠️  Unknown option. Try again.")
+                print("  ⚠️  Неизвестная команда. Попробуйте снова.")
 
         except (ValueError, LookupError, KeyError) as e:
-            print(f"\n  ⛔  Error: {e}\n")
+            print(f"\n  ⛔  Ошибка: {e}\n")
 
-        input("\n  [Press Enter to continue...]")
+        input("\n  [Нажмите Enter, чтобы продолжить...]")
 
 
 if __name__ == "__main__":
