@@ -1,10 +1,3 @@
-"""
-============================================================
-  ИНТЕРАКТИВНЫЙ CLI — СИСТЕМА УЧЁТА СТУДЕНТОВ
-  Запуск: python cli.py
-============================================================
-"""
-
 from main import StudentManagementSystem, Student
 
 
@@ -65,10 +58,10 @@ def run():
             # ── 1. Регистрация ──
             if choice == "1":
                 print("\n  — Регистрация нового студента —")
-                name  = get_input("ФИО")
+                name = get_input("ФИО")
                 email = get_input("Email")
                 major = get_input("Специальность / направление")
-                year  = get_input("Курс (1-6)", int)
+                year = get_input("Курс (1-6)", int)
                 sms.register_student(name, email, major, year)
 
             # ── 2. Список всех ──
@@ -92,9 +85,9 @@ def run():
 
             # ── 5. Оценки ──
             elif choice == "5":
-                sid     = get_input("ID студента (только число)", int)
+                sid = get_input("ID студента (только число)", int)
                 subject = get_input("Название предмета")
-                grade   = get_input("Оценка (0-100)", float)
+                grade = get_input("Оценка (0-100)", float)
                 sms.add_grade(sid, subject, grade)
 
             # ── 6. Сортировка ──
@@ -142,14 +135,14 @@ def run():
 
             # ── 0. Выход ──
             elif choice == "0":
-                print("\n  Выход... 👋\n")
+                print("\n  Выход... \n")
                 break
 
             else:
-                print("  ⚠️  Неизвестная команда. Попробуйте снова.")
+                print("    Неизвестная команда. Попробуйте снова.")
 
         except (ValueError, LookupError, KeyError) as e:
-            print(f"\n  ⛔  Ошибка: {e}\n")
+            print(f"\n    Ошибка: {e}\n")
 
         input("\n  [Нажмите Enter, чтобы продолжить...]")
 

@@ -1,29 +1,9 @@
-"""
-============================================================
-  СИСТЕМА УЧЁТА СТУДЕНТОВ
-  Итоговый проект | ООП (SFT6002-105-L)
-  Демонстрирует: Абстракцию, Инкапсуляцию,
-                 Наследование, Полиморфизм
-============================================================
-"""
-
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
 
 
-# ─────────────────────────────────────────────
-#  УРОВЕНЬ 1 — АБСТРАКЦИЯ
-#  Абстрактный базовый класс, определяющий общий
-#  интерфейс для всех "персон" в системе
-# ─────────────────────────────────────────────
-
 class Person(ABC):
-    """
-    Абстрактный базовый класс для всех персон в системе.
-    Определяет общий интерфейс через абстрактные методы.
-    """
-
     def __init__(self, name: str, email: str):
         # ИНКАПСУЛЯЦИЯ — приватные атрибуты с валидацией
         self._name = self._validate_name(name)
@@ -92,11 +72,6 @@ class Person(ABC):
     def __str__(self) -> str:
         return f"{self.role()} | {self._name} <{self._email}>"
 
-
-# ─────────────────────────────────────────────
-#  УРОВЕНЬ 2 — НАСЛЕДОВАНИЕ + ИНКАПСУЛЯЦИЯ
-#  Конкретные подклассы Person
-# ─────────────────────────────────────────────
 
 class Student(Person):
     """
@@ -185,11 +160,16 @@ class Student(Person):
     def letter_grade(self) -> str:
         """Преобразование GPA в буквенную оценку."""
         avg = self.average_grade()
-        if avg >= 90:   return "A"
-        elif avg >= 75: return "B"
-        elif avg >= 60: return "C"
-        elif avg >= 50: return "D"
-        else:           return "F"
+        if avg >= 90:
+            return "A"
+        elif avg >= 75:
+            return "B"
+        elif avg >= 60:
+            return "C"
+        elif avg >= 50:
+            return "D"
+        else:
+            return "F"
 
     # ── Реализация абстрактных методов ──
 
@@ -264,10 +244,6 @@ class Administrator(Person):
         return f"  Доступ : Уровень {self._access_level}\n"
 
 
-# ─────────────────────────────────────────────
-#  УРОВЕНЬ 3 — СИСТЕМА (ФАСАД / МЕНЕДЖЕР)
-# ─────────────────────────────────────────────
-
 class StudentManagementSystem:
     """
     Основной класс управления системой.
@@ -286,7 +262,7 @@ class StudentManagementSystem:
             raise ValueError(f"Студент с email '{email}' уже существует.")
         student = Student(name, email, major, year)
         self._students.append(student)
-        print(f"  ✅  Зарегистрирован: {student}")
+        print(f"   Зарегистрирован: {student}")
         return student
 
     # ───────────── Поиск ─────────────
@@ -340,10 +316,10 @@ class StudentManagementSystem:
                 setattr(student, key, value)
                 updated_fields.append(key)
             else:
-                print(f"  ⚠️  Неизвестное поле '{key}' — пропущено.")
+                print(f"    Неизвестное поле '{key}' — пропущено.")
 
         if updated_fields:
-            print(f"  ✏️  Обновлено [{', '.join(updated_fields)}] для {student.name}")
+            print(f"    Обновлено [{', '.join(updated_fields)}] для {student.name}")
 
     # ───────────── Удаление ─────────────
 
@@ -353,7 +329,7 @@ class StudentManagementSystem:
         if not student:
             raise LookupError(f"Студент с ID {student_id} не найден.")
         self._students.remove(student)
-        print(f"  🗑️  Удалён: {student.name} (STU-{student_id})")
+        print(f"    Удалён: {student.name} (STU-{student_id})")
         return True
 
     # ───────────── Оценки ─────────────
@@ -363,7 +339,7 @@ class StudentManagementSystem:
         if not student:
             raise LookupError(f"Студент с ID {student_id} не найден.")
         student.add_grade(subject, grade)
-        print(f"  📝  Добавлена оценка: {student.name} | {subject} = {grade}")
+        print(f"    Добавлена оценка: {student.name} | {subject} = {grade}")
 
     # ───────────── Отчёты ─────────────
 
@@ -403,7 +379,7 @@ class StudentManagementSystem:
     def print_statistics(self):
         stats = self.statistics()
         print("\n" + "═" * 44)
-        print(f"  📊  {self._institution} — Статистика")
+        print(f"    {self._institution} — Статистика")
         print("═" * 44)
         print(f"  Всего студентов : {stats['count']}")
         if stats['count'] > 0:
@@ -431,17 +407,16 @@ class StudentManagementSystem:
 
 def demo():
     banner = """
-╔══════════════════════════════════════════════╗
-║    СИСТЕМА УЧЁТА СТУДЕНТОВ — ДЕМО            ║
-║    ООП проект | Итоговая работа             ║
-╚══════════════════════════════════════════════╝"""
+    СИСТЕМА УЧЁТА СТУДЕНТОВ — ДЕМО
+    ООП проект | Итоговая работа"""
+
     print(banner)
 
     sms = StudentManagementSystem("Университет SDU")
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [1] РЕГИСТРАЦИЯ СТУДЕНТОВ")
-    print("─"*44)
+    print("─" * 44)
 
     s1 = sms.register_student("Айдана Бекова", "aidana@sdu.edu.kz", "Информатика", 2)
     s2 = sms.register_student("Данияр Сейтқали", "daniyar@sdu.edu.kz", "Математика", 3)
@@ -449,9 +424,9 @@ def demo():
     s4 = sms.register_student("Бауыржан Асанов", "bauyrzhan@sdu.edu.kz", "Физика", 4)
     s5 = sms.register_student("Алина Серова", "alina@sdu.edu.kz", "Математика", 2)
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [2] ДОБАВЛЕНИЕ ОЦЕНОК")
-    print("─"*44)
+    print("─" * 44)
 
     sms.add_grade(s1.student_id, "ООП", 95.0)
     sms.add_grade(s1.student_id, "Алгоритмы", 88.5)
@@ -469,55 +444,55 @@ def demo():
     sms.add_grade(s5.student_id, "Матанализ", 70.0)
     sms.add_grade(s5.student_id, "Статистика", 85.0)
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [3] СПИСОК ВСЕХ СТУДЕНТОВ")
-    print("─"*44)
+    print("─" * 44)
     sms.print_all()
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [4] ПОИСК ПО ИМЕНИ: 'dan'")
-    print("─"*44)
+    print("─" * 44)
     results = sms.search_by_name("dan")
     sms.print_all(results)
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [5] ПОИСК ПО СПЕЦИАЛЬНОСТИ: 'информатика'")
-    print("─"*44)
+    print("─" * 44)
     results = sms.search_by_major("информатика")
     sms.print_all(results)
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [6] СОРТИРОВКА ПО GPA (лучшие первые)")
-    print("─"*44)
+    print("─" * 44)
     sorted_students = sms.sort_by_gpa()
     for i, st in enumerate(sorted_students, 1):
         grade_info = f"{st.average_grade():.2f} ({st.letter_grade()})"
         print(f"  {i}. {st.name:<25} GPA: {grade_info}")
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [7] СОРТИРОВКА ПО КУРСУ")
-    print("─"*44)
+    print("─" * 44)
     sorted_students = sms.sort_by_year()
     for st in sorted_students:
         print(f"  Курс {st.year} | {st.name}")
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [8] ОБНОВЛЕНИЕ ДАННЫХ СТУДЕНТА")
-    print("─"*44)
+    print("─" * 44)
     sms.update_student(s3.student_id, name="Жансая Нурова-Абенова", year=2)
     print(s3.show_info())
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [9] УДАЛЕНИЕ СТУДЕНТА")
-    print("─"*44)
+    print("─" * 44)
     sms.delete_student(s5.student_id)
     print(f"  Осталось студентов: {len(sms)}")
 
     sms.print_statistics()
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [11] ПОЛИМОРФИЗМ — иерархия Person")
-    print("─"*44)
+    print("─" * 44)
     print("  Создание смешанного списка объектов...\n")
 
     people: list[Person] = [
@@ -529,9 +504,9 @@ def demo():
     for person in people:
         print(person.show_info())
 
-    print("\n" + "─"*44)
+    print("\n" + "─" * 44)
     print("  [12] ОБРАБОТКА ИСКЛЮЧЕНИЙ")
-    print("─"*44)
+    print("─" * 44)
 
     errors = [
         ("Дубликат email", lambda: sms.register_student("Test", "aidana@sdu.edu.kz", "IT", 1)),
@@ -545,9 +520,9 @@ def demo():
         try:
             action()
         except (ValueError, LookupError, TypeError) as e:
-            print(f"  ⛔  [{label}]: {e}")
+            print(f"   [{label}]: {e}")
 
-    print("\n  ✅  Демонстрация завершена.\n")
+    print("\n   Демонстрация завершена.\n")
 
 
 if __name__ == "__main__":
