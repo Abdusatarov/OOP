@@ -28,12 +28,12 @@ def get_input(prompt: str, cast=str, optional=False):
         if not val and optional:
             return None
         if not val:
-            print("  ⚠️  Это поле обязательно.")
+            print("    Это поле обязательно.")
             continue
         try:
             return cast(val)
         except (ValueError, TypeError):
-            print(f"  ⚠️  Неверный ввод, ожидается {cast.__name__}. Попробуйте снова.")
+            print(f"    Неверный ввод, ожидается {cast.__name__}. Попробуйте снова.")
 
 
 def run():
