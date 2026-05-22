@@ -1,4 +1,4 @@
-from main import StudentManagementSystem, Student
+from main import StudentManagementSystem
 
 
 def hr(char="─", width=50):

@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from abc import ABC, abstractmethod
 from datetime import datetime
 import re
@@ -184,7 +186,7 @@ class Student(Person):
             f"  ID     : STU-{self.__student_id}\n"
             f"  Спец.  : {self._major}  (Курс {self._year})\n"
             f"  GPA    : {grade_str}\n"
-            f"  Предм. : {subjects}\n"
+            f"  Предмет. : {subjects}\n"
             f"  Рег.   : {self._registered_at}\n"
         )
 
@@ -418,7 +420,7 @@ def demo():
     print("  [1] РЕГИСТРАЦИЯ СТУДЕНТОВ")
     print("─" * 44)
 
-    s1 = sms.register_student("Айдана Бекова", "aidana@sdu.edu.kz", "Информатика", 2)
+    s1 = sms.register_student("Айдана Баишева", "aidana@sdu.edu.kz", "Информатика", 2)
     s2 = sms.register_student("Данияр Сейтқали", "daniyar@sdu.edu.kz", "Математика", 3)
     s3 = sms.register_student("Жансая Нурова", "zhansaya@sdu.edu.kz", "Информатика", 1)
     s4 = sms.register_student("Бауыржан Асанов", "bauyrzhan@sdu.edu.kz", "Физика", 4)
