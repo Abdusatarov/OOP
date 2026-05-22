@@ -1,0 +1,77 @@
+{
+  "institution": "Университет",
+  "students": [
+    {
+      "student_id": 1001,
+      "name": "Aidana Bekova",
+      "email": "aidana@sdu.edu.kz",
+      "major": "Computer Science",
+      "year": 2,
+      "grades": {
+        "OOP": 95.0,
+        "Algorithms": 88.5,
+        "Databases": 91.0
+      },
+      "registered_at": "2026-05-22 11:08"
+    },
+    {
+      "student_id": 1002,
+      "name": "Daniyar Seitkali",
+      "email": "daniyar@sdu.edu.kz",
+      "major": "Mathematics",
+      "year": 3,
+      "grades": {
+        "Calculus": 76.0,
+        "Linear Algebra": 82.0
+      },
+      "registered_at": "2026-05-22 11:08"
+    },
+    {
+      "student_id": 1003,
+      "name": "Zhansaya Nurova",
+      "email": "zhansaya@sdu.edu.kz",
+      "major": "Computer Science",
+      "year": 1,
+      "grades": {
+        "OOP": 55.0,
+        "Math": 62.0
+      },
+      "registered_at": "2026-05-22 11:08"
+    },
+    {
+      "student_id": 1004,
+      "name": "Bauyrzhan Asanov",
+      "email": "bauyrzhan@sdu.edu.kz",
+      "major": "Physics",
+      "year": 4,
+      "grades": {
+        "Quantum Mech": 98.0,
+        "Optics": 94.5
+      },
+      "registered_at": "2026-05-22 11:08"
+    },
+    {
+      "student_id": 1005,
+      "name": "Alina Serova",
+      "email": "alina@sdu.edu.kz",
+      "major": "Mathematics",
+      "year": 2,
+      "grades": {
+        "Calculus": 70.0,
+        "Statistics": 85.0
+      },
+      "registered_at": "2026-05-22 11:08"
+    },
+    {
+      "student_id": 1006,
+      "name": "Aidana",
+      "email": "a@a.kz",
+      "major": "CS",
+      "year": 2,
+      "grades": {
+        "OOP": 95
+      },
+      "registered_at": "2026-05-22 16:23"
+    }
+  ]
+}
